@@ -9,11 +9,13 @@ import Travel from './pages/Travel';
 import Login from './pages/Login';
 import Mypage from './pages/Mypage';
 import Register from './pages/Register';
+import ProfilePic from './components/ProfilePic/ProfilePic';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
+    <div>
     <Router>
       <Header
         logoSrc="/logo.png"
@@ -25,6 +27,7 @@ function App() {
         isLoggedIn={isLoggedIn}
         setIsLoggedIn={setIsLoggedIn}
       />
+      
 
       <Routes>
         <Route path="/" element={<Home />} />
@@ -35,7 +38,20 @@ function App() {
         <Route path="/mypage" element={<Mypage />} />
         <Route path="/register" element={<Register />} />
       </Routes>
+
+      
     </Router>
+
+
+    <ProfilePic
+    name="Jannice" 
+      image= ""
+      className="avatar"
+    />
+    
+
+    </div>
+    
   );
 }
 
