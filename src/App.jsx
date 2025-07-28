@@ -3,11 +3,17 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Sidebar from './components/Sidebar/Sidebar';
 import ToggleButton from './components/Sidebar/ToggleButton';
 
+
 import Home from './pages/Home';
 import Project from './pages/Project';
 import Calendar from './pages/Calendar';
 import Note from './pages/Note';
 import Setting from './pages/Setting';
+import AddFreeTimePage from "./pages/AddFreeTimePage";
+
+
+
+
 
 function App() {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -54,6 +60,7 @@ function App() {
             <Route path="/calendar" element={<Calendar />} />
             <Route path="/note" element={<Note />} />
             <Route path="/setting" element={<Setting />} />
+            <Route path="/add-free-time" element={<AddFreeTimePage />} />
           </Routes>
         </main>
       </div>
