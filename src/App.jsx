@@ -21,6 +21,7 @@ import PTPage from './pages/CreateCategory/PTCreatePage';
 import ProjectViewMeeting from "./components/ProjectViewMeeting/ProjectViewMeeting"
 import ProjectViewMeetingDetails from "./components/ProjectViewMeeting/ProjectViewMeetingDetails"
 import ProjectViewStandard from "./components/ProjectViewStandard/ProjectViewStandard"
+import ProjectViewPT from "./components/ProjectViewPT/ProjectViewPT"
 
 function App() {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -81,6 +82,7 @@ function App() {
             <Route path="/project/meeting" element={<ProjectViewMeeting />}/>
             <Route path="/project/meeting/details" element={<ProjectViewMeetingDetails />}/>
             <Route path="/project/standard" element={<ProjectViewStandard/>}/>
+            <Route path="/project/pt" element={<ProjectViewPT/>}/>
 
           </Routes>
         </main>

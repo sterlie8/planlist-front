@@ -1,10 +1,8 @@
-
-import MeetingDetailInfoCard from "../../components/ProjectViewMeeting/MeetingDetailInfoCard"
-import MemoCard from "../ProjectView/MemoCard"
-import "../ProjectView/ProjectViewDiv.css"
-
-
+import MemoCard from "../ProjectView/MemoCard";
+import PTList from "./PTList";
+import PTInfoCard from "./PTInfoCard"
 import ProfilePic from "../../assets/ProfilePic.png"
+import "../ProjectView/ProjectViewDiv.css"
 
 
 const sampleProject = {
@@ -14,13 +12,9 @@ const sampleProject = {
     description: "Weekly catch-up and planning meeting.",
     category: 'meeting',
     status: 'Finished',
-    repeat:'none',
+    repeat:'tuesday',
     startDate: '2025-07-01',
-    startTime: '18:00',
-    endTime: '20:00',
-    endDate: 'none',
-    placeName: 'place',
-    placeAddress:'seoul, seongbuk-gu, ...',
+    endDate: '2025-07-07',
     users: [
       { name: 'A', avatar: ProfilePic },
       { name: 'B', avatar: ProfilePic },
@@ -33,7 +27,7 @@ const sampleProject = {
       { name: 'C', avatar: ProfilePic },
       
     ],
-    meetings: ["meeting1", "meeting2", "meeting3", "meeting4", "meeting5"],
+    sessions: ["Pt1", "Pt2", "Pt3", "Pt4"],
   
 };
 
@@ -82,21 +76,20 @@ const exampleMemos = [
   }
 ];
 
-const ProjectViewMeetingDetails = () => {
-
-    return(
+const ProjectViewPT = () => {
+    return (
         <div className="screen">
-      <div className="project-view-meeting detail">
-      <div className="layout ProjectViewMeeting">
-        <MeetingDetailInfoCard project={sampleProject}/>
-        
-      </div>
-      
-      <MemoCard initialMemos={exampleMemos}/>
-    </div>
+            <div className="project-view-div">
+                <div className="layout ProjectView">
+                    <PTInfoCard project={sampleProject}/>
+                    <PTList project={sampleProject}/>
+                </div>
+                <MemoCard initialMemos={exampleMemos}/>
 
-    </div>
+            </div>
+        </div>
     )
+
 }
 
-export default ProjectViewMeetingDetails;
+export default ProjectViewPT;

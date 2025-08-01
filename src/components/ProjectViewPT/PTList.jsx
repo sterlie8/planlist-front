@@ -1,14 +1,14 @@
 
 import { Link } from "react-router-dom";
 
-const MeetingList =({project}) =>{
+const PTList =({project}) =>{
     return(
         <div className="session-list-card">
             <div className="card-title">
-                Meetings
+                PT sessions
             </div>
             <button className="add-session">
-                add meeting
+                add session
             </button>
             
             <div className="session-list">
@@ -28,4 +28,4 @@ const MeetingList =({project}) =>{
 
 }
 
-export default MeetingList;
+export default PTList;
