@@ -86,8 +86,8 @@ const ProjectViewMeetingDetails = () => {
 
     return(
         <div className="screen">
-      <div className="project-view-meeting detail">
-      <div className="layout ProjectViewMeeting">
+      <div className="project-view-div detail">
+      <div className="layout ProjectViewDiv">
         <MeetingDetailInfoCard project={sampleProject}/>
         
       </div>
