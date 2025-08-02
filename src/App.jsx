@@ -20,10 +20,13 @@ import PTPage from './pages/CreateCategory/PTCreatePage';
 
 import ProjectViewMeeting from "./components/ProjectViewMeeting/ProjectViewMeeting";
 import ProjectViewMeetingDetails from "./components/ProjectViewMeeting/ProjectViewMeetingDetails";
+
 import ProjectViewStandard from "./components/ProjectViewStandard/ProjectViewStandard";
 import ProjectViewPT from "./components/ProjectViewPT/ProjectViewPT";
 import ProjectViewPTDetails from "./components/ProjectViewPT/ProjectViewPTDetails";
 import ProjectViewTravel from "./components/ProjectViewTravel/ProjectViewTravel";
+import NotePage from './pages/Note';
+import MemoDetailPage from './pages/MemoDetailPage';
 
 function App() {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -79,7 +82,9 @@ function App() {
             <Route path="/project/create/meeting" element={<MeetingPage />} />
             <Route path="/project/create/travel" element={<TravelPage />} />
             <Route path="/project/create/pt" element={<PTPage />} />
-
+        
+            <Route path="/memo" element={<NotePage />} />
+            <Route path="/memo/:id" element={<MemoDetailPage />} />
             
             <Route path="/project/meeting" element={<ProjectViewMeeting />}/>
             <Route path="/project/meeting/details" element={<ProjectViewMeetingDetails />}/>
