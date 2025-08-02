@@ -1,10 +1,19 @@
 
 import MemoCard from "../ProjectView/MemoCard"
 import "../ProjectView/ProjectViewDiv.css"
+import "./ProjectViewPT.css"
+
 import PTDetailInfoCard from "./PTDetailInfoCard"
 
 import ProfilePic from "../../assets/ProfilePic.png"
 import ExerciseCard from "./ExerciseCard"
+import CommentCard from "./CommentCard"
+import PTGoalCard from "./PTGoalCard"
+
+const exampleComments = [
+  { id: 1, user: "haemin", text: "This is great!", isTrainer: true },
+  { id: 2, user: "friend1", text: "I agree with this", isTrainer: false }
+];
 
 const sampleProject = {
   
@@ -36,51 +45,6 @@ const sampleProject = {
   
 };
 
-const exampleMemos = [
-  {
-    id: "1",
-    type: "personal",
-    project: "example project 1",
-    content: "example project description. showing the first few sentences of the memo.",
-    category: "meeting"
-  },
-  {
-    id: "2",
-    type: "group",
-    project: "example project 2",
-    content: "example project description. showing the first few sentences of the memo.",
-    category: "meeting"
-  },
-  {
-    id: "3",
-    type: "personal",
-    project: "example project 3",
-    content: "example project description. showing the first few sentences of the memo.",
-    category: "meeting"
-  },
-  {
-    id: "4",
-    type: "group",
-    project: "example project 4",
-    content: "example project description. showing the first few sentences of the memo.",
-    category: "meeting"
-  },
-  {
-    id: "5",
-    type: "personal",
-    project: "example project 5",
-    content: "example project description. showing the first few sentences of the memo.",
-    category: "meeting"
-  },
-  {
-    id: "6",
-    type: "group",
-    project: "example project 6",
-    content: "example project description. showing the first few sentences of the memo.",
-    category: "meeting"
-  }
-];
-
 const ProjectViewPTDetails = () => {
 
     return(
@@ -89,9 +53,17 @@ const ProjectViewPTDetails = () => {
       <div className="layout ProjectViewDiv">
         <PTDetailInfoCard project={sampleProject}/>
         <ExerciseCard/>
+        
+      </div>
+
+      <div className="layout ProjectViewDiv">
+        <PTGoalCard/>
+        <CommentCard initialComments={exampleComments}/>
+        
       </div>
       
-      <MemoCard initialMemos={exampleMemos}/>
+      
+      
     </div>
 
     </div>
