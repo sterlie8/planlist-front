@@ -1,0 +1,55 @@
+.calendar-wrapper {
+  font-family: sans-serif;
+}
+
+.calendar-title {
+  font-weight: bold;
+}
+
+.calendar-months {
+  display: flex;
+  gap: 2rem;
+}
+
+.calendar-month {
+  flex: 1;
+}
+
+.month-label {
+  text-align: center;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+}
+
+.calendar-day-name {
+  font-weight: bold;
+}
+
+.calendar-date {
+  padding: 6px;
+  cursor: pointer;
+}
+
+.calendar-date.start,
+.calendar-date.end {
+  border: 2px solid #1e40af;
+  border-radius: 50%;
+  background-color: #c7d2fe;
+}
+
+.calendar-date.in-range {
+  background-color: #e0e7ff;
+  border-radius: 6px;
+}
+
+.calendar-footer {
+  margin-top: 1rem;
+}
+
+.calendar-empty {
+  visibility: hidden;
+}
