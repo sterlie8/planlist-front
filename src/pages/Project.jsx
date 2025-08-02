@@ -25,8 +25,8 @@ const allProjects=[
   },
   {
           id: 2,
-          title: 'Personal Training session 2',
-          category: 'PT',
+          title: 'Travel',
+          category: 'travel',
           status: 'In progress',
           startDate: '2025-08-06',
           endDate: '2025-08-16',
