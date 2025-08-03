@@ -9,7 +9,8 @@ import {
   isAfter,
   isBefore,
 } from "date-fns";
-import TwoMonthCalendar from "./TwoMonthCalendar";
+import "./TwoMonthCalendar.css"; 
+
 import { ReactComponent as ProjectNextIcon } from "../../assets/Project_next_button.svg";
 import { ReactComponent as BackIcon } from '../../assets/prev_arrow.svg';
 
@@ -31,18 +32,6 @@ const mockFriends = [
   { id: 6, name: 'NAME6', email: 'example6@gmail.com', profileImage: profile1 },
 ];
 
-// mock fallback
-const mockWeekDates = [
-  { date: '2025-08-11', label: 'Monday 11' },
-  { date: '2025-08-12', label: 'Tuesday 12' },
-  { date: '2025-08-13', label: 'Wednesday 13' },
-  { date: '2025-08-14', label: 'Thursday 14' },
-  { date: '2025-08-15', label: 'Friday 15' },
-  { date: '2025-08-16', label: 'Saturday 16' },
-  { date: '2025-08-17', label: 'Sunday 17' },
-];
-
-
 
 
 
@@ -56,7 +45,36 @@ const TravelSelectDate = ({ formData, updateFormData, nextStep, prevStep }) => {
         updateFormData({ title, startDate, endDate });
         nextStep();
       };
-    
+      
+            const today = new Date();
+            const monthsToShow = [0, 1];
+          
+            const handleClick = (date) => {
+              if (!startDate) {
+                setStartDate(date);
+                setEndDate(null);
+              } else if (!endDate) {
+                if (isBefore(date, startDate)) {
+                  setStartDate(null);
+                  setEndDate(null);
+                } else {
+                  setEndDate(date);
+                }
+              } else {
+                setStartDate(date);
+                setEndDate(null);
+              }
+            };
+          
+            const getDateClass = (date) => {
+              if (startDate && isSameDay(date, startDate)) return "start";
+              if (endDate && isSameDay(date, endDate)) return "end";
+              if (startDate && endDate && isAfter(date, startDate) && isBefore(date, endDate))
+                return "in-range";
+              return "";
+            };
+          
+            
 
     return(
         <div>
@@ -74,8 +92,47 @@ const TravelSelectDate = ({ formData, updateFormData, nextStep, prevStep }) => {
                   <ProfileOverflowIcon className="profile-skip-icon" />
               )}
           </div>
-        
-          <TwoMonthCalendar/>
+
+              <div className="calendar-wrapper">
+                <h3 className="calendar-title"> PROJECT NAME</h3>
+                <div className="calendar-months">
+                  {monthsToShow.map((offset) => {
+                    const monthStart = startOfMonth(addMonths(today, offset));
+                    const monthEnd = endOfMonth(addMonths(today, offset));
+                    const days = eachDayOfInterval({ start: monthStart, end: monthEnd });
+          
+                    return (
+                      <div className="calendar-month" key={offset}>
+                        <h4 className="month-label">{format(monthStart, "MMMM yyyy")}</h4>
+                        <div className="calendar-grid">
+                          {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((d) => (
+                            <div className="calendar-day-name" key={d}>{d}</div>
+                          ))}
+                          {Array(monthStart.getDay() === 0 ? 6 : monthStart.getDay() - 1)
+                            .fill("")
+                            .map((_, i) => (
+                              <div className="calendar-empty" key={`pad-${i}`} />
+                            ))}
+                          {days.map((date) => (
+                            <div
+                              key={date}
+                              onClick={() => handleClick(date)}
+                              className={`calendar-date ${getDateClass(date)}`}
+                            >
+                              {format(date, "d")}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+          
+                <div className="calendar-footer">
+                  <p> start: {startDate ? format(startDate, "MM/dd") : "--"}</p>
+                  <p> end: {endDate ? format(endDate, "MM/dd") : "--"}</p>
+                </div>
+              </div>
           <button className="project-next-button" onClick={handleNext}> <ProjectNextIcon/></button>
 
         </div>

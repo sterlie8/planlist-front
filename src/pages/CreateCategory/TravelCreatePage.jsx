@@ -1,8 +1,11 @@
+import { Terminal } from "react";
+
 import { useState } from "react";
 import Step1StartProject from "../../components/CreateTravel/CreateTravel"
 import Step2AddParticipants from "../../components/StandardCreatePage/AddParticipants";
 import Step3SelectDate from "../../components/CreateTravel/TravelSelectDate"
-
+import Step4SelectPlace from "../../components/CreateTravel/TravelSelectPlace"
+import Step5CreatePlanner from "../../components/CreateTravel/TravelCreatePlanner"
 
 const TravelCreatePage = () =>{
     const [step, setStep] = useState(1);
@@ -18,6 +21,8 @@ const TravelCreatePage = () =>{
 
   const updateFormData = (newData) => {
     setFormData((prev) => ({ ...prev, ...newData }));
+    console.log(newData);
+    
   };
 
   return (
@@ -31,15 +36,34 @@ const TravelCreatePage = () =>{
         />
       )}
       {step === 2 && (
+        <div>
         <Step2AddParticipants 
           formData={formData}
           updateFormData={updateFormData}
           nextStep={nextStep}
           prevStep={prevStep}
         />
+        
+        </div>
       )}
       {step === 3 && (
         <Step3SelectDate 
+          formData={formData}
+          updateFormData={updateFormData}
+          nextStep={nextStep}
+          prevStep={prevStep}
+        />
+      )}
+      {step === 4 && (
+        <Step4SelectPlace 
+          formData={formData}
+          updateFormData={updateFormData}
+          nextStep={nextStep}
+          prevStep={prevStep}
+        />
+      )}
+     {step === 5 && (
+        <Step5CreatePlanner 
           formData={formData}
           updateFormData={updateFormData}
           nextStep={nextStep}

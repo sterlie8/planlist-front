@@ -3,7 +3,7 @@ import PlaceMap from './PlaceMap';
 import './ChoosePlace.css';
 
 import LocationIcon from '../../icons/LocationIcon';
-
+ 
 import { ReactComponent as BackIcon } from '../../assets/prev_arrow.svg';
 import { ReactComponent as ProjectNextIcon } from "../../assets/Project_next_button.svg";
 import { ReactComponent as SearchIcon } from '../../assets/Search.svg';
