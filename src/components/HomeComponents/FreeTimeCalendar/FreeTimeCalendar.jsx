@@ -22,20 +22,33 @@ const CalendarSection = () => {
 
   /* API에 맞게 변경
   useEffect(() => {
-  const fetchAvailability = async () => {
-    try {
-      const response = await fetch("/api/available-dates"); // ✅ 실제 API endpoint
-      const data = await response.json();
+    const fetchAvailability = async () => {
+      try {
+        const response = await fetch("/api/home");  // 백엔드 API
+        const data = await response.json();
 
-      setPartialDates(data.partialAvailableDates || []);
-      setFullDates(data.fullyAvailableDates || []);
-    } catch (error) {
-      console.error("Failed to fetch availability data:", error);
-    }
-  };
+        const partial = [];
+        const full = [];
 
-  fetchAvailability();
-}, []);
+        if (data.freeTimeCalendar) {
+          data.freeTimeCalendar.forEach((entry) => {
+            if (entry.allDay) {
+              full.push(entry.date);
+            } else {
+              partial.push(entry.date);
+            }
+          });
+        }
+
+        setPartialDates(partial);
+        setFullDates(full);
+      } catch (error) {
+        console.error("Failed to fetch freeTimeCalendar:", error);
+      }
+    };
+
+    fetchAvailability();
+  }, []);
 */
 
   return (
