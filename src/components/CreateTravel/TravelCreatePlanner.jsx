@@ -1,14 +1,31 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PlaceSelectionPopup from './PlaceSelectionPopup';
 import { ReactComponent as BackIcon } from '../../assets/prev_arrow.svg';
+import { ReactComponent as ProjectNextIcon } from "../../assets/Project_next_button.svg";
+import { format, addDays, eachDayOfInterval } from 'date-fns';
+import PlaceMap from '../StandardCreatePage/PlaceMap';
+import MemoCard from '../ProjectViewTravel/TravelMemoCard';
+import LocationIcon from '../../icons/LocationIcon';
 
 
-const predefinedDates = ['2025-08-10', '2025-08-11', '2025-08-12'];
+import "./TravelCreatePlanner.css";
 
 const TravelPlannerCreate = ({ formData, updateFormData, nextStep, prevStep }) => {
   const [itinerary, setItinerary] = useState({});
-  const [activeDate, setActiveDate] = useState(predefinedDates[0]);
+  const [dateList, setDateList] = useState([]);
+  const [activeDate, setActiveDate] = useState('');
   const [showPopup, setShowPopup] = useState(false);
+
+  useEffect(() => {
+    if (formData.startDate && formData.endDate) {
+      const allDates = eachDayOfInterval({
+        start: new Date(formData.startDate),
+        end: new Date(formData.endDate)
+      }).map(d => format(d, 'MM/dd'));
+      setDateList(allDates);
+      setActiveDate(allDates[0]); // default to first
+    }
+  }, [formData.startDate, formData.endDate]);
 
   const currentList = itinerary[activeDate] || [];
 
@@ -45,18 +62,42 @@ const TravelPlannerCreate = ({ formData, updateFormData, nextStep, prevStep }) =
     setItinerary((prev) => ({ ...prev, [activeDate]: updated }));
   };
 
+  const handleNext = () => {
+    const allScheduledPlaces = [];
+
+    for (const [date, entries] of Object.entries(itinerary)) {
+      entries.forEach(entry => {
+        if (entry.type === 'place') {
+          allScheduledPlaces.push({
+            ...entry.data,
+            date, // attach scheduled date
+          });
+        }
+      });
+    }
+
+    updateFormData({ places: allScheduledPlaces });
+    nextStep();
+  };
+  const selectedPlaces = (formData.places || []).filter(p => p.date);
+const filteredPlaces = selectedPlaces.filter(p => p.date === activeDate); // or some other condition
+
+
+  
+
   return (
     <div className="travel-planner-container">
-        <button onClick={prevStep} className="prev-button"><BackIcon /></button>
-      <h2>Plan Your Trip</h2>
+      <button onClick={prevStep} className="prev-button"><BackIcon /></button>
+      <h2>Project name</h2>
 
       {/* Date Tabs */}
-      <div className="date-tabs">
-        {predefinedDates.map((date) => (
+      <div className=" tab date-tabs">
+        {dateList.map((date) => (
           <button
             key={date}
             className={`date-tab ${activeDate === date ? 'active' : ''}`}
             onClick={() => setActiveDate(date)}
+            disabled={activeDate === date} 
           >
             {date}
           </button>
@@ -68,15 +109,25 @@ const TravelPlannerCreate = ({ formData, updateFormData, nextStep, prevStep }) =
         {currentList.map((entry, index) => {
           const isPlace = entry.type === 'place';
           const next = currentList[index + 1];
-          const showAddTrafficBetween =
-            isPlace && next?.type === 'place';
+          const showAddTrafficBetween = isPlace && next?.type === 'place';
 
           return (
             <React.Fragment key={index}>
               <li className={`entry ${entry.type}`}>
                 {isPlace ? (
                   <>
-                    🏛 {entry.data.name}
+                    <div className="planner-place-item">
+                      <LocationIcon color={"#BAD6EB"} />
+                      <span className='place-title'>{entry.data.name}</span>
+                      <div className="place-address">{entry.data.address}</div>
+                        <div className="place-desc">
+                          {entry.data.description || 'description about the place......'}
+                        </div>
+
+
+                    </div>
+                    <button onClick={() => handleRemoveEntry(index)}>✕</button>
+
                     <input
                       type="time"
                       value={entry.data.time}
@@ -86,11 +137,10 @@ const TravelPlannerCreate = ({ formData, updateFormData, nextStep, prevStep }) =
                       placeholder="HH:MM"
                       style={{ marginLeft: '10px' }}
                     />
-                    <button onClick={() => handleRemoveEntry(index)}>✕</button>
                   </>
                 ) : (
                   <>
-                    🚗
+                    
                     <select
                       value={entry.data.kind}
                       onChange={(e) =>
@@ -102,6 +152,8 @@ const TravelPlannerCreate = ({ formData, updateFormData, nextStep, prevStep }) =
                       <option value="bus">Bus</option>
                       <option value="subway">Subway</option>
                     </select>
+                    <button onClick={() => handleRemoveEntry(index)}>✕</button>
+
                     <input
                       type="text"
                       placeholder="Duration"
@@ -112,7 +164,7 @@ const TravelPlannerCreate = ({ formData, updateFormData, nextStep, prevStep }) =
                       style={{ marginLeft: '10px', width: '60px' }}
                     />
                     <span>min</span>
-                    <button onClick={() => handleRemoveEntry(index)}>✕</button>
+
                   </>
                 )}
               </li>
@@ -127,7 +179,7 @@ const TravelPlannerCreate = ({ formData, updateFormData, nextStep, prevStep }) =
           );
         })}
 
-        {/* Add Traffic + Add Place at the end */}
+        {/* Add buttons at the end */}
         {(() => {
           const last = currentList[currentList.length - 1];
           const allowTrailingTraffic = last?.type === 'place';
@@ -140,14 +192,14 @@ const TravelPlannerCreate = ({ formData, updateFormData, nextStep, prevStep }) =
                 </li>
               )}
               <li>
-                <button onClick={() => setShowPopup(true)}>+ Add Place</button>
+                <button className="planner-add-place-button" onClick={() => setShowPopup(true)}>Add Place</button>
               </li>
             </>
           );
         })()}
       </ul>
 
-      {/* Place Selection Popup */}
+      {/* Popup */}
       {showPopup && (
         <PlaceSelectionPopup
           places={formData.places}
@@ -155,6 +207,16 @@ const TravelPlannerCreate = ({ formData, updateFormData, nextStep, prevStep }) =
           onClose={() => setShowPopup(false)}
         />
       )}
+
+      
+
+
+      <PlaceMap selectedPlace={(formData.places || []).find(p => p.date === activeDate) || null} />
+      
+      <MemoCard/>
+      <button className="project2-next-button" onClick={handleNext}>
+        <ProjectNextIcon />
+      </button>
     </div>
   );
 };

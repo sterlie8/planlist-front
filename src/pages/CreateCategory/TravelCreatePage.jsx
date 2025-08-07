@@ -6,10 +6,22 @@ import Step2AddParticipants from "../../components/StandardCreatePage/AddPartici
 import Step3SelectDate from "../../components/CreateTravel/TravelSelectDate"
 import Step4SelectPlace from "../../components/CreateTravel/TravelSelectPlace"
 import Step5CreatePlanner from "../../components/CreateTravel/TravelCreatePlanner"
+import Step6FinalMap from "../../components/CreateTravel/FinalMap";
+
+import "../../components/CreateTravel/TravelCreatePage.css"; // selectDate, CreatePlanner 제외 스타일
+
+//테스트용 표시될 날짜
+const recommendedDates = [
+  { start: new Date(2025, 7, 12), end: new Date(2025, 7, 13) }, 
+  { start: new Date(2025, 7, 24), end: new Date(2025, 7, 30) }, 
+  { start: new Date (2025, 7, 1), end: new Date(2025, 7, 1)}
+];
+
+
 
 const TravelCreatePage = () =>{
     const [step, setStep] = useState(1);
-  const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState({
     title: '',
     startDate: null,
     endDate: null,
@@ -50,6 +62,7 @@ const TravelCreatePage = () =>{
         <Step3SelectDate 
           formData={formData}
           updateFormData={updateFormData}
+          recommendedDates={recommendedDates}
           nextStep={nextStep}
           prevStep={prevStep}
         />
@@ -69,6 +82,17 @@ const TravelCreatePage = () =>{
           nextStep={nextStep}
           prevStep={prevStep}
         />
+      )}
+      {step ===  6 && (
+        <div>
+          
+        <Step6FinalMap 
+          formData={formData}
+          updateFormData={updateFormData}
+          nextStep={nextStep}
+          prevStep={prevStep}
+        />
+        </div>
       )}
       
       

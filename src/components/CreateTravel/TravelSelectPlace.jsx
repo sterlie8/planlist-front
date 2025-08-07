@@ -5,6 +5,8 @@ import LocationIcon from '../../icons/LocationIcon';
 import { ReactComponent as BackIcon } from '../../assets/prev_arrow.svg';
 import { ReactComponent as ProjectNextIcon } from "../../assets/Project_next_button.svg";
 import { ReactComponent as SearchIcon } from '../../assets/Search.svg';
+import x_circle from "../../assets/x_circle.svg";
+
 
 const TravelSelectPlace = ({ formData, updateFormData, nextStep, prevStep }) => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -54,7 +56,7 @@ const TravelSelectPlace = ({ formData, updateFormData, nextStep, prevStep }) => 
 
         <div className="choose-search-panel">
           {/* Category Tabs */}
-          <div className="category-tabs">
+          <div className="tab category-tabs">
             {['all', 'place', 'dining', 'stay'].map(tab => (
               <button
                 key={tab}
@@ -91,6 +93,7 @@ const TravelSelectPlace = ({ formData, updateFormData, nextStep, prevStep }) => 
                     isSelected ? handleUnselectPlace(place.id) : handleSelectPlace(place)
                   }>
                     <LocationIcon color={isSelected ? "#081F5C" : "#BAD6EB"} />
+                    
                     <span>{place.name}</span>
                     {isSelected && (
                       <button
@@ -100,10 +103,11 @@ const TravelSelectPlace = ({ formData, updateFormData, nextStep, prevStep }) => 
                           handleUnselectPlace(place.id);
                         }}
                       >
-                        ✕
+                        <img src={x_circle} />
                       </button>
                     )}
                   </div>
+
                   <div className="place-address">{place.address}</div>
                   <div className="place-desc">
                     {place.description || 'description about the place......'}
