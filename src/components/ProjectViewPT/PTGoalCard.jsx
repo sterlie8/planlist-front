@@ -16,25 +16,25 @@ const PTGoalCard = ({ initialGoal = "Enter your PT goal here." }) => {
   };
 
   return (
-    <div>
-      <h3>Today's Goal</h3>
+    <div className="goal-card">
+      <div className="goal-name">Today's Goal</div>
       {isEditing ? (
         <div>
-          <input
+          <input className="goal-input"
             value={tempGoal}
             onChange={(e) => setTempGoal(e.target.value)}
             rows={3}
             cols={40}
           />
           <div>
-            <button onClick={handleSave}>Save</button>
-            <button onClick={handleCancel}>Cancel</button>
+            <button className="goal-button" onClick={handleSave}>Save</button>
+            <button className="goal-button" onClick={handleCancel}>Cancel</button>
           </div>
         </div>
       ) : (
         <div>
-          <p>{goal}</p>
-          <button onClick={() => setIsEditing(true)}>Edit</button>
+          <p className="goal-content">{goal}</p>
+          <button className="goal-edit-button" onClick={() => setIsEditing(true)}>edit goal</button>
         </div>
       )}
     </div>

@@ -30,10 +30,10 @@ const PlaceSelectionPopup = ({ places, onSelect, onClose }) => {
             .filter(place => activeTab === 'all' || place.category === activeTab)
             .map(place => (
               <li key={place.id} onClick={() => onSelect(place)}>
-                <div className="place-item">
+                <div className="popup-place-item">
                       <LocationIcon color={"#BAD6EB"} />
 
-                      <div>
+                      <div className='popup-place-item-content'>
                         <span className='place-title'>{place.name}</span>
                         <div className="place-address">{place.address}</div>
                           <div className="place-desc">

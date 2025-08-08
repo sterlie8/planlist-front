@@ -12,7 +12,7 @@
 }
 
 .popup-box{
-        position:relative;
+    position:relative;
 
     background-color:#EEF1F6;
     width: 350px;
@@ -72,7 +72,8 @@ input:focus{
 }
 
 .dropdown-list {
-    margin:0px;
+   
+    margin:20px 0px 0px 0px;
     width: 350px;
     max-height: 120px;
     overflow-y: auto;
@@ -86,6 +87,14 @@ input:focus{
 
 .search-bar{
     position: relative;
+    height:32px;
+    margin-bottom:30px;
+}
+
+.search-list img{
+    height:15px;
+    width:15px;
+    margin-top:10px;
 }
 
 .search-list{
@@ -95,6 +104,10 @@ input:focus{
     background:white;
     top: 9px;
     left: 310px;
+}
+
+.popup-search{
+    font-size:14px;
 }
 
 .dropdown-list li {
@@ -115,7 +128,7 @@ input:focus{
 }
 
 .popup-row div{
-    margin-top:3px;
+    margin-top:13px;
     font-size:14px;
 }
 
@@ -126,6 +139,7 @@ input:focus{
     width: 120px;
     padding-left:10px;
     border-radius: 8px;
+    font-size:15px;
 }
 
 .popup-actions{

@@ -23,14 +23,20 @@ const CommentCard = ({ initialComments }) => {
 
   return (
     <div className="comment-card">
-      <h3>Comments</h3>
-      <ul>
+      <ul className="comment-list">
         {comments.map((comment) => (
-          <li key={comment.id}>
-            <strong>
-              {comment.user} {comment.isTrainer ? "(trainer)" : ""}:
-            </strong>{" "}
-            {comment.text}
+          <li className="comment-item" key={comment.id}>
+            <img src={comment.profilepic}/>
+
+            <div className="comment-content">
+              <div className="comment-user">
+                {comment.user} 
+              </div>
+              {comment.text}
+
+              <div className="is-trainer">{comment.isTrainer ? "trainer" : ""}</div>
+            </div>
+            
           </li>
         ))}
       </ul>

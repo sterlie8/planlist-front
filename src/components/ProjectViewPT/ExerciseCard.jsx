@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import AddExercisePopup from "./AddExercisePopup";
+import x_circle from "../../assets/x_circle.svg"
 
 const WorkoutPage = () => {
   const [showPopup, setShowPopup] = useState(false);
@@ -36,7 +37,6 @@ const WorkoutPage = () => {
         />
       )}
 
-      <h2>Workout Plan</h2>
 
       {/* Tabs */}
       <div className="tab exercise-card-tab" style={{ marginBottom: "1rem" }}>
@@ -57,33 +57,45 @@ const WorkoutPage = () => {
 
       {/* Content */}
       {activeTab === "done" ? (
-        <ul>
+        <ul className="exercise-list">
           {selectedExercises.length === 0 ? (
             <li>No exercises done yet</li>
           ) : (
             selectedExercises.map((ex, index) => (
-              <li key={index}>
-                {ex.name} – {ex.sets} sets, {ex.time} min{" "}
+              <li className="exercise-item" key={index}>
+                <span className="exercise-title">{ex.name}  </span>
+                <span>
+                  <div>
+                    {ex.sets} sets {ex.time} min{" "}
+                  </div>
+                </span>
+                
                 <button
                   onClick={() => handleDelete(index)}
                   style={{ marginLeft: "10px", color: "red" }}
                 >
-                  ❌ Delete
+                  <img src={x_circle}/>
                 </button>
               </li>
             ))
           )}
         </ul>
       ) : (
-        <ul>
+        <ul className="exercise-list">
           {trainersPick.map((ex, index) => (
-              <li key={index}>
-                {ex.name} – {ex.sets} sets, {ex.time} min{" "}
+              <li className="exercise-item" key={index}>
+                <span className="exercise-title">{ex.name}  </span>
+                <span>
+                  <div>
+                    {ex.sets} sets {ex.time} min{" "}
+                  </div>
+                </span>
+                
                 <button
                   onClick={() => handleDelete(index)}
                   style={{ marginLeft: "10px", color: "red" }}
                 >
-                  ❌ Delete
+                  <img src={x_circle}/>
                 </button>
               </li>
             ))}
@@ -91,7 +103,7 @@ const WorkoutPage = () => {
       )}
 
       
-        <button onClick={() => setShowPopup(true)}>+ Add Sets</button>
+        <button className="add-sets" onClick={() => setShowPopup(true)}> Add Sets</button>
     </div>
   );
 };

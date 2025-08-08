@@ -11,8 +11,8 @@ import CommentCard from "./CommentCard"
 import PTGoalCard from "./PTGoalCard"
 
 const exampleComments = [
-  { id: 1, user: "haemin", text: "This is great!", isTrainer: true },
-  { id: 2, user: "friend1", text: "I agree with this", isTrainer: false }
+  { id: 1, profilepic: ProfilePic, user: "trainer1", text: "This is great!", isTrainer: true },
+  { id: 2, profilepic: ProfilePic, user: "friend1", text: "I agree with this", isTrainer: false }
 ];
 
 const sampleProject = {
@@ -52,13 +52,14 @@ const ProjectViewPTDetails = () => {
       <div className="project-view-div detail">
       <div className="layout ProjectViewDiv">
         <PTDetailInfoCard project={sampleProject}/>
-        <ExerciseCard/>
+        <CommentCard initialComments={exampleComments}/>
+        
         
       </div>
 
       <div className="layout ProjectViewDiv">
         <PTGoalCard/>
-        <CommentCard initialComments={exampleComments}/>
+        <ExerciseCard/>     
         
       </div>
       

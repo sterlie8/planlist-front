@@ -46,7 +46,7 @@ const TravelSelectPlace = ({ formData, updateFormData, nextStep, prevStep }) => 
     <div className="choose-place-container">
       <div className="choose-title">
         <button onClick={prevStep} className="prev-button"><BackIcon /></button>
-        <h2>Choosing a Place</h2>
+        <h2>Project name</h2>
       </div>
 
       <div className="choose-content">
@@ -88,10 +88,11 @@ const TravelSelectPlace = ({ formData, updateFormData, nextStep, prevStep }) => 
                 <li
                   key={place.id}
                   className={`place-item ${isSelected ? 'selected' : 'not-selected'}`}
+                  onClick={() =>
+                     handleSelectPlace(place)
+                  }
                 >
-                  <div className="place-title" onClick={() =>
-                    isSelected ? handleUnselectPlace(place.id) : handleSelectPlace(place)
-                  }>
+                  <div className="place-title" >
                     <LocationIcon color={isSelected ? "#081F5C" : "#BAD6EB"} />
                     
                     <span>{place.name}</span>

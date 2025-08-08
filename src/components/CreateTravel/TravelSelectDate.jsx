@@ -112,9 +112,9 @@ const TravelSelectDate = ({ formData, updateFormData, recommendedDates, nextStep
       
 
       <div className="calendar-wrapper">
-        <div className="calendar-title-box">
+        <div className="choose-title">
           <button onClick={prevStep} className="prev-button"><BackIcon /></button>
-          <h3 className="calendar-title">PROJECT NAME</h3>
+          <h3 className="calendar-title">Project name</h3>
 
         </div>
 

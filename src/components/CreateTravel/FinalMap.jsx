@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import PlaceMap from '../StandardCreatePage/PlaceMap';
 import LocationIcon from '../../icons/LocationIcon';
 import { ReactComponent as BackIcon } from '../../assets/prev_arrow.svg';
+import SaveIcon from '../../icons/SaveIcon';
+
 import { ReactComponent as ProjectNextIcon } from "../../assets/Project_next_button.svg";
 import { format, eachDayOfInterval } from 'date-fns';
 
@@ -29,12 +31,37 @@ const TravelSelectPlace = ({ formData, updateFormData, nextStep, prevStep }) => 
     const matchDate = activeDate === 'All' || place.date === activeDate;
     return matchCategory && matchDate;
   });
+const handleSave = async () => {
+  const payload = {
+    ...formData,
+    // include only data that actually exists here
+    places: selectedPlaces, // or filteredPlaces, your call
+  };
+
+  try {
+    const res = await fetch('/api/project/save', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+
+    if (res.ok) {
+      alert('저장 완료!');
+      nextStep();
+    } else {
+      alert('저장 실패!');
+    }
+  } catch (err) {
+    console.error('저장 오류:', err);
+    alert('에러 발생');
+  }
+};
 
   return (
     <div className="choose-place-container">
       <div className="choose-title">
         <button onClick={prevStep} className="prev-button"><BackIcon /></button>
-        <h2>Review Selected Places</h2>
+        <h2>Place name</h2>
       </div>
 
       <div className="choose-content">
@@ -44,7 +71,7 @@ const TravelSelectPlace = ({ formData, updateFormData, nextStep, prevStep }) => 
 
         <div className="choose-search-panel">
           {/* Category Tabs */}
-          <div className="category-tabs">
+          <div className="tab category-tabs">
             {['All', ...predefinedCategories].map((tab) => (
               <button
                 key={tab}
@@ -57,7 +84,7 @@ const TravelSelectPlace = ({ formData, updateFormData, nextStep, prevStep }) => 
           </div>
 
           {/* Date Tabs (dynamically generated) */}
-          <div className="date-tabs">
+          <div className="tab date-tabs">
             {['All', ...dateTabs].map((tab) => (
               <button
                 key={tab}
@@ -91,9 +118,12 @@ const TravelSelectPlace = ({ formData, updateFormData, nextStep, prevStep }) => 
         </div>
       </div>
 
-      <button className="project2-next-button" onClick={nextStep}>
-        <ProjectNextIcon />
-      </button>
+      <div className="save-project-bottom-right">
+        <button className="save-project-save-button" onClick={handleSave}>
+          Save <SaveIcon />
+        </button>
+      </div>
+
     </div>
   );
 };
