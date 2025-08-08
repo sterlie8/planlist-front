@@ -1,7 +1,7 @@
-import MeetingInfoCard from "../../components/ProjectViewMeeting/MeetingInfoCard"
-import MeetingList from "../../components/ProjectViewMeeting/MeetingList";
+import MeetingInfoCard from "./MeetingInfoCard"
+import MeetingList from "./MeetingList";
 import MemoCard from "../ProjectView/MemoCard"
-import "./ProjectViewMeeting.css"
+import "../ProjectView/ProjectViewDiv.css"
 
 import ProfilePic from "../../assets/ProfilePic.png"
 
@@ -28,7 +28,7 @@ const sampleProject = {
       { name: 'C', avatar: ProfilePic },
       
     ],
-    meetings: ["meeting1", "meeting2", "meeting3", "meeting4", "meeting5"],
+    sessions: ["meeting1", "meeting2", "meeting3", "meeting4", "meeting5"],
   
 };
 
@@ -82,8 +82,8 @@ const ProjectViewMeeting = () => {
 
   return (
     <div className="screen">
-      <div className="project-view-meeting">
-      <div className="layout ProjectViewMeeting">
+      <div className="project-view-div">
+      <div className="layout ProjectView">
         <MeetingInfoCard project={sampleProject}/>
         <MeetingList project={sampleProject}/>
       </div>

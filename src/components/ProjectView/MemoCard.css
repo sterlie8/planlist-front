@@ -86,3 +86,14 @@
     left:42px;
     font-size: 12px;
 }
+
+
+/*TravelMemoCard*/
+
+.travel-memo-card{
+    height:445px;
+}
+
+.memo-list-travel{
+    height:210px;
+}
